@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import formatLastUpdated from '../../helpers/formatLastUpdated.js';
+import { formatDateToTimeAgoFormat } from '../../helpers/dateParsers.js';
 
 export default {
     props: {
@@ -21,7 +21,7 @@ export default {
     },
     computed: {
         formattedLastUpdated() {
-            return formatLastUpdated(this.category.updatedOn);
+            return formatDateToTimeAgoFormat(this.category.updatedOn);
         },
 
     },

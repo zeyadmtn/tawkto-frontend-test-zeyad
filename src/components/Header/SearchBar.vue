@@ -35,6 +35,8 @@ export default {
         height: 70%;
         width: 100%;
         padding-left: 22px;
+        font-family: $font-family;
+
 
     }
 

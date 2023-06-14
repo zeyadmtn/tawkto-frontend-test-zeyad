@@ -2,25 +2,34 @@
     <div>
         <tawk-header></tawk-header>
         <div id="category-view-wrapper">
-            <div id="breadcrumbs-nav-container">
-                <span @click="navigateToHomePage()" id="all-categories-link-text">All Categories</span>
-                <span> &nbsp; > &nbsp; </span>
-                <span>{{ category.title }}</span>
-            </div>
-
-            <div id="category-content-container">
-                <div id="category-card">
-                    <i :class="'category-icon fa fa-' + (category.icon || 'question-circle') + ' fa-4x'"></i>
-                    <span class="category-title">{{ category.title }}</span>
-                    <div class="category-details">
-                        <span class="category-last-updated">Last updated {{ formattedLastUpdated }}</span>
+            <div id="category-view-container">
+                <div>
+                    <div id="breadcrumbs-nav-container">
+                        <span @click="navigateToHomePage()" id="all-categories-link-text">All Categories</span>
+                        <span> &nbsp; > &nbsp; </span>
+                        <span>{{ category.title }}</span>
                     </div>
-                    <div class="dividing-line"></div>
-                    <i class="category-icon fa fa-question-circle fa-md"></i>
-                    <div id="category-description">
-                        {{ category.description }}
-                    </div>
-
+        
+                    <div id="category-content-container">
+                        <div>
+                            <div id="category-card">
+                                <i :class="'category-icon fa fa-' + (category.icon || 'question-circle') + ' fa-4x'"></i>
+                                <span class="category-title">{{ category.title }}</span>
+                                <div class="category-details">
+                                    <span class="category-last-updated">Last updated {{ formattedLastUpdated }}</span>
+                                </div>
+                                <div class="dividing-line"></div>
+                                <i class="category-icon fa fa-question-circle fa-md"></i>
+                                <div id="category-description">
+                                    {{ category.description }}
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div id="article-list-container">
+                            <article-card v-for="article in articles" :key="article.id" :article="article"></article-card>
+                        </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -31,16 +40,18 @@
 import axios from 'axios';
 import { ENDPOINTS } from '../config';
 import Header from '../components/header/Header.vue';
-import formatLastUpdated from '../helpers/formatLastUpdated.js';
+import { formatDateToTimeAgoFormat } from '../helpers/dateParsers';
+import ArticleCard from '../components/CategoryDetail/ArticleCard.vue';
 
 
 export default {
     components: {
         'tawk-header': Header,
+        'article-card': ArticleCard
     },
     computed: {
         formattedLastUpdated() {
-            return formatLastUpdated(this.category.updatedOn);
+            return formatDateToTimeAgoFormat(this.category.updatedOn);
         },
     },
     data() {
@@ -97,9 +108,15 @@ export default {
     height: auto;
     justify-content: center;
     align-items: center;
-    padding: 40px 100px;
+    padding: 40px 60px;
     font-family: $font-family;
 
+}
+
+#category-view-container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
 
@@ -117,6 +134,8 @@ export default {
 #category-content-container {
     width: 100%;
     padding: 20px 0px;
+    display: flex;
+    flex-direction: row;
 }
 
 #category-card {
@@ -125,11 +144,12 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 50px 0px;
+    padding: 50px 5px;
     border: 1px solid #EEEEEE;
     border-radius: 5px;
     font-family: $font-family;
     text-align: center;
+    margin-right: 3.75rem;
 }
 
 
