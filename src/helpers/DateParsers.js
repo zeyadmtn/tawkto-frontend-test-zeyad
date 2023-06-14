@@ -1,3 +1,4 @@
+//Takes in date formatted "2019-12-19T13:47:20.466Z" and outputs as format "2 weeks ago"
 function formatDateToTimeAgoFormat(date) {
     const lastUpdated = new Date(date);
     const currentDate = new Date();
@@ -28,7 +29,7 @@ function formatDateToTimeAgoFormat(date) {
     }
 }
 
-
+// Takes in date formatted "2019-12-19T13:47:20.466Z" and outputs as format "14 June 2023"
 function formatDateToShortDateFormat(date) {
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
     const formattedDate = new Date(date).toLocaleDateString(undefined, options);

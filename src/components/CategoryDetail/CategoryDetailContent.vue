@@ -77,7 +77,8 @@ export default {
         fetchCategory(categoryID) {
             axios.get(ENDPOINTS.ALL_CATEGORIES)
                 .then(response => {
-                    // Filter the categories based on categoryID
+                    // Find category by categoryID from fetched data.
+                    // Refactoring Suggestion: create API method to fetch category directly by ID
                     const categories = response.data;
                     this.category = categories.find(category => category.id === categoryID);
                 })
@@ -94,6 +95,7 @@ export default {
             axios.get(`${ENDPOINTS.CATEGORY_ARTICLES_BY_ID}/${categoryID}`)
                 .then(response => {
                     // Only keeps articles with status "published"
+                    // Note: current mock data fetches all articles, none paired to a specific category
                     this.articles = response.data.filter(article => article.status === 'published');
                 })
                 .catch(error => {

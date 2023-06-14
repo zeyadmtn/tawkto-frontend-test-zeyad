@@ -39,6 +39,7 @@ export default {
         fetchCategories() {
             axios.get(ENDPOINTS.ALL_CATEGORIES)
                 .then(response => {
+                    // Store only categories with "enabled" = true
                     this.categories = response.data.filter(category => category.enabled);
                 })
                 .catch(error => {
