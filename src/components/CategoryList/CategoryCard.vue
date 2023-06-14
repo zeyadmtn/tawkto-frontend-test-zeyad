@@ -52,7 +52,7 @@ export default {
     align-items: center;
     width: 315px;
     height: 220px;
-    border: 1px solid #EEEEEE;
+    border: $card-border;
     border-radius: 5px;
     font-family: $font-family;
     text-align: center;
@@ -60,7 +60,7 @@ export default {
 }
 
 .category-icon {
-    color: #03A84E;
+    color: $green;
 
 }
 
@@ -69,7 +69,7 @@ export default {
     font-size: 20px;
     line-height: 24px;
     margin-top: 1.50rem;
-    color: #373737;
+    color: $text-black;
 }
 
 .category-details {

@@ -41,7 +41,7 @@ export default {
     width: 640px;
     background-color: white;
     padding: 20px 40px;
-    border: 1px solid #EEEEEE;
+    border: $card-border;
     border-radius: 5px;
     font-family: $font-family;
     margin-bottom: 1.1rem;
@@ -62,7 +62,7 @@ export default {
 }
 
 .article-title {
-    color: #373737;
+    color: $text-black;
     font-size: 20px;
     margin-bottom: 0.25rem;
 }
@@ -78,7 +78,7 @@ export default {
     padding: 20px;
    }
    .article-title {
-    color: #373737;
+    color: $text-black;
     font-size: 15px;
     margin-bottom: 0.25rem;
     margin-right: 5px;

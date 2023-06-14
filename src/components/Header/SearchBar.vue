@@ -22,7 +22,7 @@ export default {
         height: 60px;
         margin-left: auto;
         margin-right: auto;
-        border: 1px solid #EEEEEE;
+        border: $card-border;
         border-radius: 4px;
         display: flex;
         flex-direction: row;

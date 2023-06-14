@@ -1,31 +1,34 @@
 
 <template>
-    <div id="category-view-container">
-        <div id="category-view-subcontainer">
-            <div id="breadcrumbs-nav-container">
-                <span @click="navigateToHomePage()" id="all-categories-link-text">All Categories</span>
-                <span> &nbsp; > &nbsp; </span>
-                <span>{{ category.title }}</span>
-            </div>
-
-            <div id="category-content-container">
-                <div>
-                    <div id="category-card">
-                        <i :class="'category-icon fa fa-' + (category.icon || 'question-circle') + ' fa-4x'"></i>
-                        <span class="category-title">{{ category.title }}</span>
-                        <div class="category-details">
-                            <span class="category-last-updated">Last updated {{ formattedLastUpdated }}</span>
-                        </div>
-                        <div class="dividing-line"></div>
-                        <i class="category-icon fa fa-question-circle fa-md"></i>
-                        <div id="category-description">
-                            {{ category.description }}
-                        </div>
-                    </div>
+    <div>
+        <custom-error v-if="error.occured" :errorMessage="error.message"></custom-error>
+        <div id="category-view-container" v-if="!error.occured">
+            <div id="category-view-subcontainer">
+                <div id="breadcrumbs-nav-container">
+                    <span @click="navigateToHomePage()" id="all-categories-link-text">All Categories</span>
+                    <span> &nbsp; > &nbsp; </span>
+                    <span>{{ category.title }}</span>
                 </div>
 
-                <div id="article-list-container">
-                    <article-card v-for="article in articles" :key="article.id" :article="article"></article-card>
+                <div id="category-content-container">
+                    <div>
+                        <div id="category-card">
+                            <i :class="'category-icon fa fa-' + (category.icon || 'question-circle') + ' fa-4x'"></i>
+                            <span class="category-title">{{ category.title }}</span>
+                            <div class="category-details">
+                                <span class="category-last-updated">Last updated {{ formattedLastUpdated }}</span>
+                            </div>
+                            <div class="dividing-line"></div>
+                            <i class="category-icon fa fa-question-circle fa-md"></i>
+                            <div id="category-description">
+                                {{ category.description }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="article-list-container">
+                        <article-card v-for="article in articles" :key="article.id" :article="article"></article-card>
+                    </div>
                 </div>
             </div>
         </div>
@@ -37,11 +40,13 @@ import axios from 'axios';
 import { ENDPOINTS } from '../../config';
 import { formatDateToTimeAgoFormat } from '../../helpers/dateParsers';
 import ArticleCard from '../CategoryDetail/ArticleCard.vue';
+import GenericError from '../Errors/CustomError.vue';
 
 
 export default {
     components: {
-        'article-card': ArticleCard
+        'article-card': ArticleCard,
+        'custom-error': GenericError
     },
     computed: {
         formattedLastUpdated() {
@@ -52,6 +57,10 @@ export default {
         return {
             category: null,
             articles: [],
+            error: {
+                occured: false,
+                message: ''
+            }
         };
     },
     mounted() {
@@ -72,6 +81,11 @@ export default {
                 })
                 .catch(error => {
                     console.error(error);
+                    // Custom error messages here
+                    this.error = {
+                        occured: true,
+                        message: ''
+                    };
                 });
         },
         fetchArticles(categoryID) {
@@ -82,6 +96,10 @@ export default {
                 })
                 .catch(error => {
                     console.error(error);
+                    this.error = {
+                        occured: true,
+                        message: ''
+                    };
                 });
         },
         navigateToHomePage() {
@@ -96,6 +114,27 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../scss/_variables.scss';
+
+#error-details-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.5rem;
+
+}
+
+#fetch-category-error {
+    font-size: 20px;
+    text-align: center;
+    font-family: $font-family;
+    margin-left: 1rem;
+    color: $text-black;
+}
+
+.error-icon {
+    color: $text-gray;
+}
 
 #category-view-container {
     justify-content: center;
@@ -129,7 +168,7 @@ export default {
     flex-direction: column;
     align-items: center;
     padding: 50px 5px;
-    border: 1px solid #EEEEEE;
+    border: $card-border;
     border-radius: 5px;
     font-family: $font-family;
     text-align: center;
@@ -138,7 +177,7 @@ export default {
 
 
 .category-icon {
-    color: #03A84E;
+    color: $green;
 
 }
 
@@ -147,7 +186,7 @@ export default {
     font-size: 23px;
     line-height: 24px;
     margin-top: 1.50rem;
-    color: #373737;
+    color: $text-black;
 }
 
 
@@ -197,4 +236,5 @@ export default {
         justify-content: center;
         align-items: center;
     }
-}</style>
+}
+</style>

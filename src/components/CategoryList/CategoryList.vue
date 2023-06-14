@@ -1,7 +1,10 @@
 <template>
-    <div id="category-view-wrapper">
-        <div id="categories-container">
-            <category-card v-for="category in categories" :key="category.id" :category="category"></category-card>
+    <div>
+        <custom-error v-if="error.occured" :errorMessage="error.message"></custom-error>
+        <div id="category-view-wrapper" v-if="!error.occured">
+            <div id="categories-container">
+                <category-card v-for="category in categories" :key="category.id" :category="category"></category-card>
+            </div>
         </div>
     </div>
 </template>
@@ -10,15 +13,22 @@
 import axios from 'axios';
 import CategoryCard from './CategoryCard.vue';
 import { ENDPOINTS } from '../../config';
+import GenericError from '../Errors/CustomError.vue';
+
 
 export default {
     components: {
         'category-card': CategoryCard,
+        'custom-error': GenericError
     },
 
     data() {
         return {
             categories: [],
+            error: {
+                occured: false,
+                message: ''
+            }
         };
     },
 
@@ -33,6 +43,11 @@ export default {
                 })
                 .catch(error => {
                     console.error(error);
+                    // Set custom error message
+                    this.error = {
+                        occured: true,
+                        message: ''
+                    };
                 });
         },
     },
