@@ -1,37 +1,39 @@
 
 <template>
-    <div>
-        <custom-error v-if="error.occured" :errorMessage="error.message"></custom-error>
-        <div id="category-view-container" v-if="!error.occured">
-            <div id="category-view-subcontainer">
-                <div id="breadcrumbs-nav-container">
-                    <span @click="navigateToHomePage()" id="all-categories-link-text">All Categories</span>
-                    <span> &nbsp; > &nbsp; </span>
-                    <span>{{ category.title }}</span>
-                </div>
-
-                <div id="category-content-container">
-                    <div>
-                        <div id="category-card">
-                            <i :class="'category-icon fa fa-' + (category.icon || 'question-circle') + ' fa-4x'"></i>
-                            <span class="category-title">{{ category.title }}</span>
-                            <div class="category-details">
-                                <span class="category-last-updated">Last updated {{ formattedLastUpdated }}</span>
-                            </div>
-                            <div class="dividing-line"></div>
-                            <i class="category-icon fa fa-question-circle fa-md"></i>
-                            <div id="category-description">
-                                {{ category.description }}
+    <div id="category-view-wrapper">
+            <custom-error v-if="error.occured" :errorMessage="error.message"></custom-error>
+            <div id="category-view-container" v-if="!error.occured">
+                <div id="category-view-subcontainer">
+                    <div id="breadcrumbs-nav-container">
+                        <span @click="navigateToHomePage()" id="all-categories-link-text">All Categories</span>
+                        <span> &nbsp; > &nbsp; </span>
+                        <span>{{ category.title }}</span>
+                    </div>
+    
+                    <div id="category-content-container">
+                        <div>
+                            <div id="category-card">
+                                <i :class="'category-icon fa fa-' + (category.icon || 'question-circle') + ' fa-4x'"></i>
+                                <span class="category-title">{{ category.title }}</span>
+                                <div class="category-details">
+                                    <span class="category-last-updated">Last updated {{ formattedLastUpdated }}</span>
+                                </div>
+                                <div class="dividing-line"></div>
+                                <i class="category-icon fa fa-question-circle fa-md"></i>
+                                <div id="category-description">
+                                    {{ category.description }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div id="article-list-container">
-                        <article-card v-for="article in articles" :key="article.id" :article="article"></article-card>
+    
+                        <div id="article-list-container">
+                            <article-card v-for="article in articles" :key="article.id" :article="article"></article-card>
+                            <div v-if="articles.length === 0">No articles found.</div>
+                        </div>
+    
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </template>
 
@@ -40,13 +42,13 @@ import axios from 'axios';
 import { ENDPOINTS } from '../../config';
 import { formatDateToTimeAgoFormat } from '../../helpers/dateParsers';
 import ArticleCard from '../CategoryDetail/ArticleCard.vue';
-import GenericError from '../Errors/CustomError.vue';
+import CustomError from '../Errors/CustomError.vue';
 
 
 export default {
     components: {
         'article-card': ArticleCard,
-        'custom-error': GenericError
+        'custom-error': CustomError
     },
     computed: {
         formattedLastUpdated() {
@@ -114,6 +116,17 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../scss/_variables.scss';
+
+
+#category-view-wrapper {
+    background: $background-gray;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 60px;
+    font-family: $font-family;
+
+}
 
 #error-details-container {
     display: flex;

@@ -37,6 +37,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../scss/_variables.scss';
+
 .article-card-container {
     width: 640px;
     background-color: white;
@@ -66,6 +67,7 @@ export default {
     font-size: 20px;
     margin-bottom: 0.25rem;
 }
+
 .article-last-updated {
     color: $text-gray;
     font-size: 11px;
@@ -73,20 +75,21 @@ export default {
 
 
 @media (max-width: 768px) {
-   .article-card-container {
-    max-width: 250px;
-    padding: 20px;
-   }
-   .article-title {
-    color: $text-black;
-    font-size: 15px;
-    margin-bottom: 0.25rem;
-    margin-right: 5px;
-}
-.article-last-updated {
-    color: $text-gray;
-    font-size: 11px;
-}
+    .article-card-container {
+        max-width: 250px;
+        padding: 20px;
+    }
 
-}
-</style>
+    .article-title {
+        color: $text-black;
+        font-size: 15px;
+        margin-bottom: 0.25rem;
+        margin-right: 5px;
+    }
+
+    .article-last-updated {
+        color: $text-gray;
+        font-size: 11px;
+    }
+
+}</style>

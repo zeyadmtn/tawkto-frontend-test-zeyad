@@ -13,13 +13,13 @@
 import axios from 'axios';
 import CategoryCard from './CategoryCard.vue';
 import { ENDPOINTS } from '../../config';
-import GenericError from '../Errors/CustomError.vue';
+import CustomError from '../Errors/CustomError.vue';
 
 
 export default {
     components: {
         'category-card': CategoryCard,
-        'custom-error': GenericError
+        'custom-error': CustomError
     },
 
     data() {

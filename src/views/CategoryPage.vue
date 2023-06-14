@@ -1,9 +1,7 @@
 <template>
     <div>
         <tawk-header></tawk-header>
-        <div id="category-view-wrapper">
-            <category-detail-content></category-detail-content>
-        </div>
+        <category-detail-content></category-detail-content>
     </div>
 </template>
 
@@ -19,18 +17,3 @@ export default {
     },
 };
 </script>
-
-
-<style lang="scss" scoped>
-@import '../scss/_variables.scss';
-
-#category-view-wrapper {
-    background: $background-gray;
-    height: auto;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 60px;
-    font-family: $font-family;
-    
-}
-</style>
