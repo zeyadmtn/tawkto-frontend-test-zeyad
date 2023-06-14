@@ -70,4 +70,23 @@ export default {
     color: $text-gray;
     font-size: 11px;
 }
+
+
+@media (max-width: 768px) {
+   .article-card-container {
+    max-width: 250px;
+    padding: 20px;
+   }
+   .article-title {
+    color: #373737;
+    font-size: 15px;
+    margin-bottom: 0.25rem;
+    margin-right: 5px;
+}
+.article-last-updated {
+    color: $text-gray;
+    font-size: 11px;
+}
+
+}
 </style>

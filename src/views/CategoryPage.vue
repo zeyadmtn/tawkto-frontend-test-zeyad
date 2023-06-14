@@ -2,99 +2,20 @@
     <div>
         <tawk-header></tawk-header>
         <div id="category-view-wrapper">
-            <div id="category-view-container">
-                <div>
-                    <div id="breadcrumbs-nav-container">
-                        <span @click="navigateToHomePage()" id="all-categories-link-text">All Categories</span>
-                        <span> &nbsp; > &nbsp; </span>
-                        <span>{{ category.title }}</span>
-                    </div>
-        
-                    <div id="category-content-container">
-                        <div>
-                            <div id="category-card">
-                                <i :class="'category-icon fa fa-' + (category.icon || 'question-circle') + ' fa-4x'"></i>
-                                <span class="category-title">{{ category.title }}</span>
-                                <div class="category-details">
-                                    <span class="category-last-updated">Last updated {{ formattedLastUpdated }}</span>
-                                </div>
-                                <div class="dividing-line"></div>
-                                <i class="category-icon fa fa-question-circle fa-md"></i>
-                                <div id="category-description">
-                                    {{ category.description }}
-                                </div>
-                            </div>
-                        </div>
-        
-                        <div id="article-list-container">
-                            <article-card v-for="article in articles" :key="article.id" :article="article"></article-card>
-                        </div>
-                </div>
-                </div>
-            </div>
+            <category-detail-content></category-detail-content>
         </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios';
-import { ENDPOINTS } from '../config';
 import Header from '../components/header/Header.vue';
-import { formatDateToTimeAgoFormat } from '../helpers/dateParsers';
-import ArticleCard from '../components/CategoryDetail/ArticleCard.vue';
+import CategoryDetailContent from '../components/CategoryDetail/CategoryDetailContent.vue'
 
 
 export default {
     components: {
         'tawk-header': Header,
-        'article-card': ArticleCard
-    },
-    computed: {
-        formattedLastUpdated() {
-            return formatDateToTimeAgoFormat(this.category.updatedOn);
-        },
-    },
-    data() {
-        return {
-            category: null,
-            articles: [],
-        };
-    },
-    mounted() {
-        const { categoryID } = this.$route.params;
-
-        // Fetch category data again rather than pass as props to keep any new information updated.
-        this.fetchCategory(categoryID);
-        this.fetchArticles(categoryID);
-    },
-    methods: {
-
-        fetchCategory(categoryID) {
-            axios.get(ENDPOINTS.ALL_CATEGORIES)
-                .then(response => {
-                    // Filter the categories based on categoryID
-                    const categories = response.data;
-                    this.category = categories.find(category => category.id === categoryID);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        },
-        fetchArticles(categoryID) {
-            axios.get(`${ENDPOINTS.CATEGORY_ARTICLES_BY_ID}/${categoryID}`)
-                .then(response => {
-                    // Only keeps articles with status "published"
-                    this.articles = response.data.filter(article => article.status === 'published');
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        },
-        navigateToHomePage() {
-            this.$router.push({
-                name: 'home',
-            });
-        },
+        'category-detail-content': CategoryDetailContent
     },
 };
 </script>
@@ -188,7 +109,32 @@ export default {
 
 @media (max-width: 768px) {
     #category-view-wrapper {
-        padding: 40px 50px;
+       padding: 0px, 10px;
+
+    }
+
+    #category-view-container {
+        flex-direction: column;
+        padding: 0px;
+        justify-content: center;
+        align-items: center;
+    }
+    #category-content-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #category-card {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 2rem;
+    }
+    #category-view-subcontainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }
 </style>
