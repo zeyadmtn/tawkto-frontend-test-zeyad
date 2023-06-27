@@ -67,8 +67,6 @@ export default {
         };
     },
     mounted() {
-        // Use one filter
-
         const { searchText } = this.$route.params;
         this.fetchArticles(searchText);
     },
@@ -78,7 +76,7 @@ export default {
 
             axios.get(`${ENDPOINTS.ARTICLE_BY_TEXT}/${searchText}`)
                 .then(response => {
-                    // Only keeps articles with status "published"
+                    // Only keeps articles with status "published" and that matches the search text
                     // Note: current mock data fetches all articles, none paired to a specific category
                     this.articles = response.data.filter(article => {
                         return (
