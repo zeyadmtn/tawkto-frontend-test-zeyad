@@ -1,12 +1,35 @@
 <template>
     <div id="search-bar-container">
-        <input type="text" placeholder="Search for answers" name="search-text">
-        <div id="search-bar-button-container">
+        <input type="text" placeholder="Search for answers" name="search-text" v-model="searchText"
+            @keyup.enter="navigateToSearchResultsPage()">
+        <div id="search-bar-button-container" v-on:click="navigateToSearchResultsPage()">
             <i class="fas fa-search fa-lg"></i>
         </div>
     </div>
 </template>
 
+<script>
+export default {
+    data() {
+        return {
+            searchText: ''
+        };
+    },
+    methods: {
+        navigateToSearchResultsPage() {
+            // if (this.$route.name == 'search') {
+            //     return
+            // }
+            this.$router.push({
+                name: 'search',
+                params: {
+                    searchText: this.searchText
+                },
+            });
+        },
+    },
+};
+</script>
 <style lang="scss" scoped>
 @import '../../scss/_variables.scss';
 

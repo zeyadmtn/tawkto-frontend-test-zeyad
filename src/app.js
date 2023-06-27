@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 
 import HomePage from './views/HomePage.vue';
 import CategoryPage from './views/CategoryPage.vue';
+import SearchResultsPage from './views/SearchResultsPage.vue';
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,11 @@ const router = new VueRouter({
 			name: 'category',
 			component: CategoryPage,
 			props: true,
+		},
+		{
+			path: '/search=:searchText',
+			name: 'search',
+			component: SearchResultsPage,
 		},
 	],
 });
